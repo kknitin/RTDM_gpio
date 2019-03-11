@@ -24,41 +24,21 @@ typedef struct device_context {
 	int dir;
 	} gpio_dev_context;
 
-
-
-
-
-static int gpio_open(struct rtdm_fd *fd, int oflags)
-{
+static int gpio_open(struct rtdm_fd *fd, int oflags) {
 	gpio_dev_context *context;
 	context	= (gpio_dev_context *) rtdm_fd_to_private(fd);
 	
 	context->gpio = -1;
 	context->val = 0;
 	context->dir = 0;
-	
-
 	return 0;
 }
 
-
-
-
-
-
-
-
-static void gpio_close(struct rtdm_fd *fd)
-{
+static void gpio_close(struct rtdm_fd *fd) {
 	gpio_dev_context *context = (gpio_dev_context *) rtdm_fd_to_private(fd);
-	
 	if (context->gpio >= 0)
 		gpio_free(context->gpio);
-
 }
-
-
-
 
 
 static int gpio_ioctl_rt(struct rtdm_fd *fd, unsigned int request,
@@ -207,14 +187,6 @@ static int gpio_ioctl_rt(struct rtdm_fd *fd, unsigned int request,
 
 	return result;
 }
-
-
-
-
-
-
-
-
 
 static struct rtdm_driver gpio_driver = {
 	.profile_info           = RTDM_PROFILE_INFO(gpio,
